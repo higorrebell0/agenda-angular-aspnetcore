@@ -1,0 +1,47 @@
+<h1>{{actionType}} Consulta</h1>
+<form [formGroup]="form" (ngSubmit)="salvar()" #formDir="ngForm" novalidate>
+  <div class="form-group row">
+    <div class="col">
+      <label class=" control-label col-md-12">Início</label>
+      <div class="col-md-12">
+        <!-- <input class="form-control" type="text" formControlName="dataNascimento"> -->
+        <input class="form-control" placeholder="yyyy-mm-dd" name="dtInicio" [(ngModel)]="model" ngbDatepicker #dpI="ngbDatepicker" formControlName="dtInicio" (focusout)="validateDate()">
+        <div class="input-group-append">
+          <button class="btn btn-outline-secondary calendar" (click)="dpI.toggle()" type="button">📅</button>
+        </div>
+      </div>
+      <span class="text-danger ml-3" *ngIf="dataInicio.invalid && formDir.submitted">
+        Data de nascimento é obrigatória.
+      </span>
+    </div>
+    <div class="col">
+      <label class=" control-label col-md-12">Término</label>
+      <div class="col-md-12">
+        <!-- <input class="form-control" type="text" formControlName="dataNascimento"> -->
+        <input class="form-control" placeholder="yyyy-mm-dd" name="dtTermino" [(ngModel)]="model" ngbDatepicker #dpT="ngbDatepicker" formControlName="dtTermino" (focusout)="validateDate()">
+        <div class="input-group-append">
+          <button class="btn btn-outline-secondary calendar" (click)="dpT.toggle()" type="button">📅</button>
+        </div>
+      </div>
+      <span class="text-danger ml-3" *ngIf="dataTermino.invalid && formDir.submitted">
+        Data de nascimento é obrigatória.
+      </span>
+    </div>
+  </div>
+  <div class="form-group row">
+    <label class=" control-label col-md-12">Paciente</label>
+    <div class="col-md-12">
+      <input class="form-control" type="text" formControlName="paciente">
+    </div>
+  </div>
+  <div class="form-group row">
+    <label class=" control-label col-md-12">Observações</label>
+    <div class="col-md-12">
+      <textarea class="form-control" type="text" formControlName="observacoes"></textarea>
+    </div>
+  </div>
+  <div class="form-group">
+    <button type="submit" class="btn btn-success float-right">Salvar</button>
+    <button class="btn btn-secondary float-left" (click)="cancelar()">Cancelar</button>
+  </div>
+</form>

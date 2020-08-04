@@ -1,0 +1,32 @@
+<h1>Listagem de Pacientes</h1>
+<!-- async pipe to display observables values in html -->
+<p *ngIf="!(listPacientes$ | async)"><em>Loading...</em></p>
+<p>
+  <a [routerLink]="['/']" class="btn btn-primary float-left mb-3">Consultas</a>
+  <a [routerLink]="['/paciente/cadastrar']" class="btn btn-primary float-right mb-3">Cadastrar Paciente</a>
+</p>
+
+<table class="table table-sm table-hover" *ngIf="(listPacientes$ | async)?.length>0">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Nome</th>
+      <th>Data Nascimento</th>
+      <th>E-mail</th>
+      <th>Telefone</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let paciente of (listPacientes$ | async)">
+      <td>{{ paciente.pacienteID }}</td>
+      <td><a [routerLink]="['/paciente/', paciente.pacienteID]">{{ paciente.nome }}</a></td>
+      <td>{{ paciente.dataNascimento | date: "dd.MM.y" }}</td>
+      <td>{{ paciente.email }}</td>
+      <td>{{ paciente.telefone }}</td>
+      <td><a [routerLink]="['/paciente/editar/', paciente.pacienteID]" class="btn btn-primary btn-sm float-right">Editar</a></td>
+      <td><a [routerLink]="" (click)="delete(paciente.pacienteID)" class="btn btn-danger btn-sm float-right">Excluir</a></td>
+    </tr>
+  </tbody>
+</table>

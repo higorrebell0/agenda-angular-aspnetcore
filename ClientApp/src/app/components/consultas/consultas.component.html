@@ -1,0 +1,32 @@
+<h1>Consultas</h1>
+<!-- async pipe to display observables values in html -->
+<p *ngIf="!(listaConsultas$ | async)"><em>Loading...</em></p>
+<p>
+  <a [routerLink]="['/pacientes']" class="btn btn-primary float-left mb-3">Pacientes</a>
+  <a [routerLink]="['/consulta/cadastrar']" class="btn btn-primary float-right mb-3">Nova Consulta</a>
+</p>
+
+<table class="table table-sm table-hover" *ngIf="(listaConsultas$ | async)?.length>0">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Paciente</th>
+      <th>Observações</th>
+      <th>Início</th>
+      <th>Término</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let consulta of (listaConsultas$ | async)">
+      <td>{{ consulta.consultaID }}</td>
+      <td>{{ consulta.paciente.nome }}</td>
+      <td><a [routerLink]="['/consulta/', consulta.consultaID]">{{ consulta.observacoes }}</a></td>
+      <td>{{ consulta.dataInicio | date: "dd.MM.y" }}</td>
+      <td>{{ consulta.dataTermino | date: "dd.MM.y" }}</td>
+      <td><a [routerLink]="['/consulta/editar/', consulta.consultaID]" class="btn btn-primary btn-sm float-right">Editar</a></td>
+      <td><a [routerLink]="" (click)="delete(consulta.consultaID)" class="btn btn-danger btn-sm float-right">Excluir</a></td>
+    </tr>
+  </tbody>
+</table>
